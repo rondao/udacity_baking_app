@@ -1,9 +1,11 @@
 package com.rondao.ubakingapp.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Ingredient {
     private float quantity;
     private String measure;
-    //@SerializedName("ingredient")
+    @SerializedName("ingredient")
     private String name;
 
     public float getQuantity() {
