@@ -16,6 +16,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            file('src/main/res-screens')
+                    .listFiles()
+                    .each { res.srcDirs += it.path }
+        }
+    }
 }
 
 dependencies {
