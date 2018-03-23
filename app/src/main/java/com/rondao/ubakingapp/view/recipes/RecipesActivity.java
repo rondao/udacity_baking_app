@@ -26,7 +26,7 @@ public class RecipesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_recipes);
+        mRecyclerView = findViewById(R.id.rv_recipes);
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         mRecyclerView.setHasFixedSize(true);

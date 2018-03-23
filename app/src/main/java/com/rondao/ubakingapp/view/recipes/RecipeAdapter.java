@@ -26,8 +26,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
-            mRecipeName = (TextView) itemView.findViewById(R.id.tv_recipe_name);
-            mRecipeServings = (TextView) itemView.findViewById(R.id.tv_recipe_servings);
+            mRecipeName = itemView.findViewById(R.id.tv_recipe_name);
+            mRecipeServings = itemView.findViewById(R.id.tv_recipe_servings);
         }
 
         public void bind(Recipe recipe) {
