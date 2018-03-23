@@ -29,6 +29,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             mRecipeName = (TextView) itemView.findViewById(R.id.tv_recipe_name);
             mRecipeServings = (TextView) itemView.findViewById(R.id.tv_recipe_servings);
         }
+
+        public void bind(Recipe recipe) {
+            mRecipeName.setText(recipe.getName());
+            mRecipeServings.setText(recipe.getServings());
+        }
     }
 
     @Override
@@ -43,9 +48,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public void onBindViewHolder(RecipeViewHolder holder, int position) {
         Recipe recipe = mRecipeData.get(position);
-
-        holder.mRecipeName.setText(recipe.getName());
-        holder.mRecipeServings.setText(recipe.getServings());
+        holder.bind(recipe);
     }
 
     @Override
