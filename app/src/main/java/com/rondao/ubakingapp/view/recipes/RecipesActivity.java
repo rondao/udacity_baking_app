@@ -33,5 +33,21 @@ public class RecipesActivity extends AppCompatActivity {
 
         mRecipeAdapter = new RecipeAdapter();
         mRecyclerView.setAdapter(mRecipeAdapter);
+
+        BakingApi.ApiInterface apiService =
+                BakingApi.getClient().create(BakingApi.ApiInterface.class);
+
+        Call<List<Recipe>> call = apiService.getBakingRecipes();
+        call.enqueue(new Callback<List<Recipe>>() {
+            @Override
+            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
+                mRecipeAdapter.setRecipeData(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Recipe>> call, Throwable t) {
+                Log.e(RecipesActivity.class.getName(), t.toString());
+            }
+        });
     }
 }
