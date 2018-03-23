@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="recipe" type="com.rondao.ubakingapp.model.Recipe" />
+        <variable name="obj" type="com.rondao.ubakingapp.model.Recipe" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -26,7 +26,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@{recipe.name}"
+                android:text="@{obj.name}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/sample_recipe_name" />
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:text="@{recipe.servings}"
+                android:text="@{obj.servings}"
                 app:layout_constraintBottom_toTopOf="@+id/lb_recipe_servings"
                 app:layout_constraintStart_toEndOf="@+id/lb_recipe_servings"
                 app:layout_constraintTop_toBottomOf="@+id/lb_recipe_servings"
