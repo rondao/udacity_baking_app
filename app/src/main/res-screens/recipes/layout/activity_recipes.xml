@@ -7,8 +7,9 @@
     tools:context="com.rondao.ubakingapp.view.recipes.RecipesActivity">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_recipes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@android:layout/simple_list_item_2" />
