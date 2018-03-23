@@ -24,6 +24,11 @@ public class RecipesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
+        initRecipesRecyclerView();
+        fetchRecipes();
+    }
+
+    private void initRecipesRecyclerView() {
         RecyclerView mRecyclerView = findViewById(R.id.rv_recipes);
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
@@ -31,7 +36,9 @@ public class RecipesActivity extends AppCompatActivity {
 
         mRecipeAdapter = new RecipeAdapter();
         mRecyclerView.setAdapter(mRecipeAdapter);
+    }
 
+    private void fetchRecipes() {
         BakingApi.ApiInterface apiService =
                 BakingApi.getClient().create(BakingApi.ApiInterface.class);
 
