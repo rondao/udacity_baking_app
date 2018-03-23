@@ -7,20 +7,19 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.rondao.ubakingapp.BR;
-import com.rondao.ubakingapp.databinding.RecipeCardBinding;
 
 public abstract class GenericAdapter extends RecyclerView.Adapter<GenericAdapter.GenericViewHolder> {
     public class GenericViewHolder extends RecyclerView.ViewHolder {
-        private final ViewDataBinding  mBiding;
+        private final ViewDataBinding mBinding;
 
         public GenericViewHolder(ViewDataBinding  binding) {
             super(binding.getRoot());
-            mBiding = binding;
+            mBinding = binding;
         }
 
         public void bind(Object obj) {
-            mBiding.setVariable(BR.obj, obj);
-            mBiding.executePendingBindings();
+            mBinding.setVariable(BR.obj, obj);
+            mBinding.executePendingBindings();
         }
     }
 
