@@ -10,7 +10,6 @@ import com.rondao.ubakingapp.R;
 import com.rondao.ubakingapp.data.BakingApi;
 import com.rondao.ubakingapp.model.Recipe;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;

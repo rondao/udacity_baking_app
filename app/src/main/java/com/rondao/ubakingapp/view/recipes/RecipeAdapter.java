@@ -1,13 +1,10 @@
 package com.rondao.ubakingapp.view.recipes;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.rondao.ubakingapp.R;
+import com.rondao.ubakingapp.databinding.RecipeCardBinding;
 import com.rondao.ubakingapp.model.Recipe;
 
 import java.util.ArrayList;
@@ -21,28 +18,23 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder {
-        public final TextView mRecipeName;
-        public final TextView mRecipeServings;
+        private final RecipeCardBinding mRecipeCardBinding;
 
-        public RecipeViewHolder(View itemView) {
-            super(itemView);
-            mRecipeName = itemView.findViewById(R.id.tv_recipe_name);
-            mRecipeServings = itemView.findViewById(R.id.tv_recipe_servings);
+        public RecipeViewHolder(RecipeCardBinding binding) {
+            super(binding.getRoot());
+            mRecipeCardBinding = binding;
         }
 
         public void bind(Recipe recipe) {
-            mRecipeName.setText(recipe.getName());
-            mRecipeServings.setText(recipe.getServings());
+            mRecipeCardBinding.setRecipe(recipe);
+            mRecipeCardBinding.executePendingBindings();
         }
     }
 
     @Override
     public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        View view = inflater.inflate(R.layout.recipe_card, parent, false);
-        return new RecipeViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        return new RecipeViewHolder(RecipeCardBinding.inflate(inflater, parent, false));
     }
 
     @Override
