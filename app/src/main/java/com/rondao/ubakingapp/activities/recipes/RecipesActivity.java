@@ -45,7 +45,12 @@ public class RecipesActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         mRecyclerView.setHasFixedSize(true);
 
-        mRecipeAdapter = new GenericAdapter(R.layout.recipe_card);
+        mRecipeAdapter = new GenericAdapter(R.layout.recipe_card, new GenericAdapter.ListItemClickListener<Recipe>() {
+            @Override
+            public void onListItemClick(Recipe obj) {
+                Log.e("RONDAO", obj.getName());
+            }
+        });
         mRecyclerView.setAdapter(mRecipeAdapter);
     }
 }
