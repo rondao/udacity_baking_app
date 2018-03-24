@@ -29,10 +29,10 @@ public class RecipesActivity extends AppCompatActivity implements RecipesContrac
     }
 
     private void initRecipesRecyclerView() {
-        RecyclerView mRecyclerView = findViewById(R.id.rv_recipes);
+        RecyclerView recyclerView = findViewById(R.id.rv_recipes);
 
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-        mRecyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerView.setHasFixedSize(true);
 
         mRecipeAdapter = new GenericAdapter(R.layout.recipe_card, new GenericAdapter.ListItemClickListener<Recipe>() {
             @Override
@@ -40,7 +40,7 @@ public class RecipesActivity extends AppCompatActivity implements RecipesContrac
                 mPresenter.onRecipeClicked(obj);
             }
         });
-        mRecyclerView.setAdapter(mRecipeAdapter);
+        recyclerView.setAdapter(mRecipeAdapter);
     }
 
     @Override
