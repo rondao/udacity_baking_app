@@ -1,4 +1,4 @@
-package com.rondao.ubakingapp.model;
+package com.rondao.ubakingapp.data.model;
 
 import java.util.List;
 

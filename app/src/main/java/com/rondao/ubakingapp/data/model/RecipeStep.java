@@ -1,4 +1,4 @@
-package com.rondao.ubakingapp.model;
+package com.rondao.ubakingapp.data.model;
 
 public class RecipeStep {
     private int id;

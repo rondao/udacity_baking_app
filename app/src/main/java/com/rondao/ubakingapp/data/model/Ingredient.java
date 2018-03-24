@@ -1,4 +1,4 @@
-package com.rondao.ubakingapp.model;
+package com.rondao.ubakingapp.data.model;
 
 import com.google.gson.annotations.SerializedName;
 

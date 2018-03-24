@@ -1,7 +1,7 @@
-package com.rondao.ubakingapp.view.recipes;
+package com.rondao.ubakingapp.activities.recipes;
 
 import com.rondao.ubakingapp.R;
-import com.rondao.ubakingapp.model.Recipe;
+import com.rondao.ubakingapp.data.model.Recipe;
 import com.rondao.ubakingapp.util.GenericAdapter;
 
 import java.util.List;

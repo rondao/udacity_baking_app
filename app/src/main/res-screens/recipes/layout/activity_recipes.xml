@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rondao.ubakingapp.view.recipes.RecipesActivity">
+    tools:context="com.rondao.ubakingapp.activities.recipes.RecipesActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_recipes"
