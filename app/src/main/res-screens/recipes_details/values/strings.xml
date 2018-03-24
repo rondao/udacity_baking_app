@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lb_ingredients_header">List of ingredients:</string>
+    <string name="lb_steps_header">Baking steps:</string>
+
+    <string name="sample_ingredient_quantity">200</string>
+    <string name="sample_ingredient_measure">ml</string>
+    <string name="lb_of">of</string>
+    <string name="sample_ingredient_name">Milk</string>
+
+    <string name="sample_step_number">42</string>
+    <string name="sample_step_short_description">Mix everything with DETERMINATION!</string>
+</resources>
