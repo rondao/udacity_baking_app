@@ -1,7 +1,10 @@
 package com.rondao.ubakingapp.data.model;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
+@Parcel
 public class Recipe {
     private int id;
     private String name;

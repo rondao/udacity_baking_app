@@ -11,6 +11,8 @@ import com.rondao.ubakingapp.activities.recipes.details.DetailsActivity;
 import com.rondao.ubakingapp.data.model.Recipe;
 import com.rondao.ubakingapp.util.GenericAdapter;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 public class RecipesActivity extends AppCompatActivity implements RecipesContract.View {
@@ -49,6 +51,7 @@ public class RecipesActivity extends AppCompatActivity implements RecipesContrac
     @Override
     public void showRecipeDetails(Recipe recipe) {
         Intent intent = new Intent(this, DetailsActivity.class);
+        intent.putExtra(DetailsActivity.EXTRA_RECIPE, Parcels.wrap(recipe));
         startActivity(intent);
     }
 }

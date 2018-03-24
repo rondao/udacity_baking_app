@@ -2,6 +2,9 @@ package com.rondao.ubakingapp.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Ingredient {
     private float quantity;
     private String measure;

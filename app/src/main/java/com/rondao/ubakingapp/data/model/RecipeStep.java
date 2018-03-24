@@ -1,5 +1,8 @@
 package com.rondao.ubakingapp.data.model;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class RecipeStep {
     private int id;
     private String shortDescription;
