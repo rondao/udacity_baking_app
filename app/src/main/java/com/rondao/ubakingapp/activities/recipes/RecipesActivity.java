@@ -1,23 +1,20 @@
 package com.rondao.ubakingapp.activities.recipes;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.rondao.ubakingapp.R;
+import com.rondao.ubakingapp.activities.recipes.details.DetailsActivity;
 import com.rondao.ubakingapp.data.model.Recipe;
-import com.rondao.ubakingapp.data.source.RecipesDataSource;
 import com.rondao.ubakingapp.util.GenericAdapter;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class RecipesActivity extends AppCompatActivity {
+public class RecipesActivity extends AppCompatActivity implements RecipesContract.View {
+    private final RecipesContract.Presenter mPresenter = new RecipesPresenter(this);
     private GenericAdapter<Recipe> mRecipeAdapter;
 
     @Override
@@ -26,17 +23,7 @@ public class RecipesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipes);
 
         initRecipesRecyclerView();
-        RecipesDataSource.getRecipes(new Callback<List<Recipe>>() {
-            @Override
-            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                mRecipeAdapter.setDataSet(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                Log.e(RecipesActivity.class.getName(), t.toString());
-            }
-        });
+        mPresenter.loadRecipes();
     }
 
     private void initRecipesRecyclerView() {
@@ -48,9 +35,20 @@ public class RecipesActivity extends AppCompatActivity {
         mRecipeAdapter = new GenericAdapter(R.layout.recipe_card, new GenericAdapter.ListItemClickListener<Recipe>() {
             @Override
             public void onListItemClick(Recipe obj) {
-                Log.e("RONDAO", obj.getName());
+                mPresenter.onRecipeClicked(obj);
             }
         });
         mRecyclerView.setAdapter(mRecipeAdapter);
+    }
+
+    @Override
+    public void onLoadRecipes(List<Recipe> recipes) {
+        mRecipeAdapter.setDataSet(recipes);
+    }
+
+    @Override
+    public void showRecipeDetails(Recipe recipe) {
+        Intent intent = new Intent(this, DetailsActivity.class);
+        startActivity(intent);
     }
 }
