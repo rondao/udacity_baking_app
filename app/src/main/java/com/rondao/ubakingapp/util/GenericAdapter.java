@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rondao.ubakingapp.BR;
-import com.rondao.ubakingapp.data.model.Recipe;
 
 import java.util.List;
 
