@@ -7,12 +7,22 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.rondao.ubakingapp.BR;
+import com.rondao.ubakingapp.data.model.Recipe;
 
-public abstract class GenericAdapter extends RecyclerView.Adapter<GenericAdapter.GenericViewHolder> {
+import java.util.List;
+
+public class GenericAdapter<T> extends RecyclerView.Adapter<GenericAdapter.GenericViewHolder> {
+    private List<T> mDataSet;
+    private int mLayoutId;
+
+    public GenericAdapter(int layoutId) {
+        mLayoutId = layoutId;
+    }
+
     public class GenericViewHolder extends RecyclerView.ViewHolder {
         private final ViewDataBinding mBinding;
 
-        public GenericViewHolder(ViewDataBinding  binding) {
+        public GenericViewHolder(ViewDataBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
         }
@@ -27,21 +37,22 @@ public abstract class GenericAdapter extends RecyclerView.Adapter<GenericAdapter
     public GenericViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ViewDataBinding binding = DataBindingUtil.inflate(
-                inflater, viewType, parent, false);
+                inflater, mLayoutId, parent, false);
         return new GenericViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(GenericAdapter.GenericViewHolder holder, int position) {
-        holder.bind(getObjForPosition(position));
+        holder.bind(mDataSet.get(position));
+    }
+
+    public void setDataSet(List<T> dataSet) {
+        mDataSet = dataSet;
+        notifyDataSetChanged();
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return getLayoutIdForPosition(position);
+    public int getItemCount() {
+        return mDataSet == null ? 0 : mDataSet.size();
     }
-
-    protected abstract Object getObjForPosition(int position);
-
-    protected abstract int getLayoutIdForPosition(int position);
 }

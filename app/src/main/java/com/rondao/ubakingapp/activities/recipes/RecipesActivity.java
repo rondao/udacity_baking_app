@@ -9,6 +9,7 @@ import android.util.Log;
 import com.rondao.ubakingapp.R;
 import com.rondao.ubakingapp.data.model.Recipe;
 import com.rondao.ubakingapp.data.source.RecipesDataSource;
+import com.rondao.ubakingapp.util.GenericAdapter;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RecipesActivity extends AppCompatActivity {
-    private RecipeAdapter mRecipeAdapter;
+    private GenericAdapter<Recipe> mRecipeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class RecipesActivity extends AppCompatActivity {
         RecipesDataSource.getRecipes(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                mRecipeAdapter.setRecipeData(response.body());
+                mRecipeAdapter.setDataSet(response.body());
             }
 
             @Override
@@ -44,7 +45,7 @@ public class RecipesActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         mRecyclerView.setHasFixedSize(true);
 
-        mRecipeAdapter = new RecipeAdapter();
+        mRecipeAdapter = new GenericAdapter(R.layout.recipe_card);
         mRecyclerView.setAdapter(mRecipeAdapter);
     }
 }
