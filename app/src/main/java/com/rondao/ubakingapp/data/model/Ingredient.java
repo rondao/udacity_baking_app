@@ -6,10 +6,10 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Ingredient {
-    private float quantity;
-    private String measure;
+    float quantity;
+    String measure;
     @SerializedName("ingredient")
-    private String name;
+    String name;
 
     public float getQuantity() {
         return quantity;

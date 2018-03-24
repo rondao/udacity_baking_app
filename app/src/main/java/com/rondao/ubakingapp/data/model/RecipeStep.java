@@ -4,11 +4,15 @@ import org.parceler.Parcel;
 
 @Parcel
 public class RecipeStep {
-    private int id;
-    private String shortDescription;
-    private String description;
-    private String videoURL;
-    private String thumbnailURL;
+    int id;
+    String shortDescription;
+    String description;
+    String videoURL;
+    String thumbnailURL;
+
+    public int getStepNumber() {
+        return id + 1;
+    }
 
     public int getId() {
         return id;

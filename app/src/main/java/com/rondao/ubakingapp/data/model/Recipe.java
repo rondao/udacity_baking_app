@@ -6,12 +6,12 @@ import java.util.List;
 
 @Parcel
 public class Recipe {
-    private int id;
-    private String name;
-    private List<Ingredient> ingredients;
-    private List<RecipeStep> steps;
-    private String servings;
-    private String image;
+    int id;
+    String name;
+    List<Ingredient> ingredients;
+    List<RecipeStep> steps;
+    String servings;
+    String image;
 
     public int getId() {
         return id;
