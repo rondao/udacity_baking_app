@@ -7,7 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.rondao.ubakingapp.R;
-import com.rondao.ubakingapp.activities.recipes.details.DetailsActivity;
+import com.rondao.ubakingapp.activities.recipes.details.RecipeActivity;
 import com.rondao.ubakingapp.data.model.Recipe;
 import com.rondao.ubakingapp.util.GenericAdapter;
 
@@ -22,7 +22,7 @@ public class RecipesActivity extends AppCompatActivity implements RecipesContrac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipes);
+        setContentView(R.layout.recipes_activity);
 
         initRecipesRecyclerView();
         mPresenter.loadRecipes();
@@ -50,8 +50,8 @@ public class RecipesActivity extends AppCompatActivity implements RecipesContrac
 
     @Override
     public void showRecipeDetails(Recipe recipe) {
-        Intent intent = new Intent(this, DetailsActivity.class);
-        intent.putExtra(DetailsActivity.EXTRA_RECIPE, Parcels.wrap(recipe));
+        Intent intent = new Intent(this, RecipeActivity.class);
+        intent.putExtra(RecipeActivity.EXTRA_RECIPE, Parcels.wrap(recipe));
         startActivity(intent);
     }
 }

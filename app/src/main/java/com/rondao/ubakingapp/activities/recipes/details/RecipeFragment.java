@@ -18,7 +18,7 @@ import com.rondao.ubakingapp.util.GenericAdapter;
 
 import org.parceler.Parcels;
 
-public class DetailsFragment extends Fragment {
+public class RecipeFragment extends Fragment {
     private GenericAdapter<Ingredient> mIngredientAdapter;
     private GenericAdapter<RecipeStep> mStepAdapter;
 
@@ -28,9 +28,9 @@ public class DetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_details, container, false);
+        mView = inflater.inflate(R.layout.recipe_fragment, container, false);
 
-        mRecipe = Parcels.unwrap(getArguments().getParcelable(DetailsActivity.EXTRA_RECIPE));
+        mRecipe = Parcels.unwrap(getArguments().getParcelable(RecipeActivity.EXTRA_RECIPE));
 
         initIngredientRecyclerView();
         initStepRecyclerView();

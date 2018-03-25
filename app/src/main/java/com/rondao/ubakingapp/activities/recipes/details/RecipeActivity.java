@@ -8,23 +8,23 @@ import com.rondao.ubakingapp.data.model.Recipe;
 
 import org.parceler.Parcels;
 
-public class DetailsActivity extends AppCompatActivity {
+public class RecipeActivity extends AppCompatActivity {
     public static final String EXTRA_RECIPE = "recipe";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.recipe_activity);
 
         Recipe recipe = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_RECIPE));
         getSupportActionBar().setTitle(recipe.getName());
 
         if (savedInstanceState == null) {
-            DetailsFragment detailsFragment = new DetailsFragment();
-            detailsFragment.setArguments(getIntent().getExtras());
+            RecipeFragment recipeFragment = new RecipeFragment();
+            recipeFragment.setArguments(getIntent().getExtras());
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_details, detailsFragment).commit();
+                    .add(R.id.recipe_fragment, recipeFragment).commit();
         }
     }
 }
