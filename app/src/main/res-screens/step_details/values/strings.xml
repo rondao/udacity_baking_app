@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="tv_step_description">Detailed and complete description on how to perform this baking step for the recipe.</string>
+    <string name="ib_navigation_left">Previous</string>
+    <string name="ib_navigation_right">Next</string>
+</resources>
