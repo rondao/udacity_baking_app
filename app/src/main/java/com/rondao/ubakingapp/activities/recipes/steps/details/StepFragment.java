@@ -15,15 +15,20 @@ import org.parceler.Parcels;
 public class StepFragment extends Fragment {
 
     private RecipeStep mStep;
+    private StepFragmentBinding mBinding;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        StepFragmentBinding binding = StepFragmentBinding.inflate(inflater, container, false);
+        mBinding = StepFragmentBinding.inflate(inflater, container, false);
 
-        mStep = Parcels.unwrap(getArguments().getParcelable(StepActivity.EXTRA_STEP));
-        binding.setObj(mStep);
+        setRecipeStep((RecipeStep) Parcels.unwrap(getArguments().getParcelable(StepActivity.EXTRA_STEP)));
 
-        return binding.getRoot();
+        return mBinding.getRoot();
+    }
+
+    public void setRecipeStep(RecipeStep step) {
+        mStep = step;
+        mBinding.setObj(mStep);
     }
 }
