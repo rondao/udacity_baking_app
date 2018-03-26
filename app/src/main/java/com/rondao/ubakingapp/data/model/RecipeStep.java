@@ -10,10 +10,6 @@ public class RecipeStep {
     String videoURL;
     String thumbnailURL;
 
-    public int getStepNumber() {
-        return id + 1;
-    }
-
     public int getId() {
         return id;
     }
