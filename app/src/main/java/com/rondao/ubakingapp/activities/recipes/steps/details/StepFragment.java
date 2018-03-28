@@ -1,6 +1,7 @@
 package com.rondao.ubakingapp.activities.recipes.steps.details;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -64,7 +65,9 @@ public class StepFragment extends Fragment {
         if (mExoPlayer == null) {
             Context context = getContext();
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(context, new DefaultTrackSelector(), new DefaultLoadControl());
+
             mPlayerView.setPlayer(mExoPlayer);
+            mPlayerView.setBackgroundColor(Color.parseColor("BLACK"));
 
             mExoPlayer.prepare(new ExtractorMediaSource(
                     mediaUri,
