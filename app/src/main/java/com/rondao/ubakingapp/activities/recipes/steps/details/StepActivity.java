@@ -36,9 +36,7 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
         mBinding = DataBindingUtil.setContentView(this, R.layout.step_activity);
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    SYSTEM_UI_FLAG_FULLSCREEN | SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-            getSupportActionBar().hide();
+            hideUiInFullscreen();
         }
 
         Icepick.restoreInstanceState(this, savedInstanceState);
@@ -49,21 +47,9 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
             RecipeStep recipe = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_STEP));
             mCurrentStep = mListSteps.indexOf(recipe);
 
-            mStepFragment = new StepFragment();
-            StepNavigationFragment stepNavigationFragment = new StepNavigationFragment();
-
-            mStepFragment.setArguments(getIntent().getExtras());
-            stepNavigationFragment.setArguments(getIntent().getExtras());
-
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.step_fragment, mStepFragment)
-                    .add(R.id.step_navigation_fragment, stepNavigationFragment)
-                    .commit();
+            initFragments();
          } else {
-            mStepFragment = (StepFragment) getSupportFragmentManager().findFragmentById(R.id.step_fragment);
-            Bundle args = new Bundle();
-            args.putParcelable(EXTRA_STEP, Parcels.wrap(mListSteps.get(mCurrentStep)));
-            mStepFragment.setArguments(args);
+            retriveExistingFragment();
         }
 
         mBinding.setObj(mListSteps.get(mCurrentStep));
@@ -73,6 +59,32 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
     public void onSaveInstanceState(Bundle outState) {
         Icepick.saveInstanceState(this, outState);
         super.onSaveInstanceState(outState);
+    }
+
+    public void hideUiInFullscreen() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                SYSTEM_UI_FLAG_FULLSCREEN | SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        getSupportActionBar().hide();
+    }
+
+    public void initFragments() {
+        mStepFragment = new StepFragment();
+        StepNavigationFragment stepNavigationFragment = new StepNavigationFragment();
+
+        mStepFragment.setArguments(getIntent().getExtras());
+        stepNavigationFragment.setArguments(getIntent().getExtras());
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.step_fragment, mStepFragment)
+                .add(R.id.step_navigation_fragment, stepNavigationFragment)
+                .commit();
+    }
+
+    public void retriveExistingFragment() {
+        mStepFragment = (StepFragment) getSupportFragmentManager().findFragmentById(R.id.step_fragment);
+        Bundle args = new Bundle();
+        args.putParcelable(EXTRA_STEP, Parcels.wrap(mListSteps.get(mCurrentStep)));
+        mStepFragment.setArguments(args);
     }
 
     @Override
