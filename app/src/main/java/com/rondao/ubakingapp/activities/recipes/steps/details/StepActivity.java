@@ -1,6 +1,7 @@
 package com.rondao.ubakingapp.activities.recipes.steps.details;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.rondao.ubakingapp.R;
@@ -10,11 +11,14 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import icepick.Icepick;
+import icepick.State;
+
 public class StepActivity extends AppCompatActivity implements StepNavigationFragment.StepNavigationListener {
     public static final String EXTRA_STEP = "step";
     public static final String EXTRA_STEPS = "steps";
 
-    private int mCurrentStep;
+    @State int mCurrentStep;
     private List<RecipeStep> mListSteps;
 
     private StepFragment mStepFragment;
@@ -24,12 +28,14 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.step_activity);
 
-        RecipeStep recipe = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_STEP));
+        Icepick.restoreInstanceState(this, savedInstanceState);
+
         mListSteps = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_STEPS));
 
-        mCurrentStep = mListSteps.indexOf(recipe);
-
         if (savedInstanceState == null) {
+            RecipeStep recipe = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_STEP));
+            mCurrentStep = mListSteps.indexOf(recipe);
+
             mStepFragment = new StepFragment();
             StepNavigationFragment stepNavigationFragment = new StepNavigationFragment();
 
@@ -42,7 +48,16 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
                     .commit();
          } else {
             mStepFragment = (StepFragment) getSupportFragmentManager().findFragmentById(R.id.step_fragment);
+            Bundle args = new Bundle();
+            args.putParcelable(EXTRA_STEP, Parcels.wrap(mListSteps.get(mCurrentStep)));
+            mStepFragment.setArguments(args);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        Icepick.saveInstanceState(this, outState);
+        super.onSaveInstanceState(outState);
     }
 
     @Override

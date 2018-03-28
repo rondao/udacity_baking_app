@@ -1,13 +1,11 @@
 package com.rondao.ubakingapp.activities.recipes.steps.details;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +18,7 @@ import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaPeriod;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.SingleSampleMediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.Allocator;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
@@ -38,8 +34,10 @@ import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class StepFragment extends Fragment {
+    private Unbinder mUnbinder;
 
     private RecipeStep mStep;
     private StepFragmentBinding mBinding;
@@ -48,15 +46,27 @@ public class StepFragment extends Fragment {
     SimpleExoPlayerView mPlayerView;
     private SimpleExoPlayer mExoPlayer;
 
+    public static StepFragment newInstance() {
+        return new StepFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = StepFragmentBinding.inflate(inflater, container, false);
-        ButterKnife.bind(this, mBinding.getRoot());
+        if (savedInstanceState == null) {
+            mBinding = StepFragmentBinding.inflate(inflater, container, false);
+            mUnbinder = ButterKnife.bind(this, mBinding.getRoot());
 
-        mPlayerView.setDefaultArtwork(DrawableUtils.getBitmapFromVectorDrawable(getContext(), R.drawable.ic_no_video));
+            mPlayerView.setDefaultArtwork(DrawableUtils.getBitmapFromVectorDrawable(getContext(), R.drawable.ic_no_video));
 
-        setRecipeStep((RecipeStep) Parcels.unwrap(getArguments().getParcelable(StepActivity.EXTRA_STEP)));
+            setRecipeStep((RecipeStep) Parcels.unwrap(getArguments().getParcelable(StepActivity.EXTRA_STEP)));
+        }
 
         return mBinding.getRoot();
     }
@@ -64,7 +74,11 @@ public class StepFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        releasePlayer();
+
+        if (!getActivity().isChangingConfigurations()) {
+            releasePlayer();
+            mUnbinder.unbind();
+        }
     }
 
     public void setRecipeStep(RecipeStep step) {
