@@ -1,11 +1,12 @@
 package com.rondao.ubakingapp.activities.recipes.steps.details;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.rondao.ubakingapp.R;
 import com.rondao.ubakingapp.data.model.RecipeStep;
+import com.rondao.ubakingapp.databinding.StepActivityBinding;
 
 import org.parceler.Parcels;
 
@@ -18,6 +19,8 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
     public static final String EXTRA_STEP = "step";
     public static final String EXTRA_STEPS = "steps";
 
+    private StepActivityBinding mBinding;
+
     @State int mCurrentStep;
     private List<RecipeStep> mListSteps;
 
@@ -26,7 +29,7 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.step_activity);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.step_activity);
 
         Icepick.restoreInstanceState(this, savedInstanceState);
 
@@ -52,6 +55,8 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
             args.putParcelable(EXTRA_STEP, Parcels.wrap(mListSteps.get(mCurrentStep)));
             mStepFragment.setArguments(args);
         }
+
+        mBinding.setObj(mListSteps.get(mCurrentStep));
     }
 
     @Override
@@ -64,6 +69,7 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
     public void onPrevious() {
         if (mCurrentStep > 0) {
             mStepFragment.setRecipeStep(mListSteps.get(--mCurrentStep));
+            mBinding.setObj(mListSteps.get(mCurrentStep));
         }
     }
 
@@ -71,6 +77,7 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
     public void onNext() {
         if (mCurrentStep < mListSteps.size() - 1) {
             mStepFragment.setRecipeStep(mListSteps.get(++mCurrentStep));
+            mBinding.setObj(mListSteps.get(mCurrentStep));
         }
     }
 }

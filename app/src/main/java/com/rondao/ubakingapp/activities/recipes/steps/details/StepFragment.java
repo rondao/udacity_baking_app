@@ -25,7 +25,6 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.rondao.ubakingapp.R;
 import com.rondao.ubakingapp.data.model.RecipeStep;
-import com.rondao.ubakingapp.databinding.StepFragmentBinding;
 import com.rondao.ubakingapp.util.DrawableUtils;
 
 import org.parceler.Parcels;
@@ -40,7 +39,7 @@ public class StepFragment extends Fragment {
     private Unbinder mUnbinder;
 
     private RecipeStep mStep;
-    private StepFragmentBinding mBinding;
+    private View mView;
 
     @BindView(R.id.exo_step_video)
     SimpleExoPlayerView mPlayerView;
@@ -60,15 +59,15 @@ public class StepFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            mBinding = StepFragmentBinding.inflate(inflater, container, false);
-            mUnbinder = ButterKnife.bind(this, mBinding.getRoot());
+            mView = inflater.inflate(R.layout.step_video_fragment, container, false);
+            mUnbinder = ButterKnife.bind(this, mView);
 
             mPlayerView.setDefaultArtwork(DrawableUtils.getBitmapFromVectorDrawable(getContext(), R.drawable.ic_no_video));
 
             setRecipeStep((RecipeStep) Parcels.unwrap(getArguments().getParcelable(StepActivity.EXTRA_STEP)));
         }
 
-        return mBinding.getRoot();
+        return mView;
     }
 
     @Override
@@ -84,7 +83,6 @@ public class StepFragment extends Fragment {
     public void setRecipeStep(RecipeStep step) {
         mStep = step;
         setMediaToPlayer(mStep.getVideoURL());
-        mBinding.setObj(mStep);
     }
 
     private void setMediaToPlayer(String videoUrl) {
