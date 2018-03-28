@@ -14,7 +14,7 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
     public static final String EXTRA_STEP = "step";
     public static final String EXTRA_STEPS = "steps";
 
-    private RecipeStep mCurrentStep;
+    private int mCurrentStep;
     private List<RecipeStep> mListSteps;
 
     private StepFragment mStepFragment;
@@ -24,8 +24,10 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.step_activity);
 
-        mCurrentStep = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_STEP));
+        RecipeStep recipe = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_STEP));
         mListSteps = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_STEPS));
+
+        mCurrentStep = mListSteps.indexOf(recipe);
 
         if (savedInstanceState == null) {
             mStepFragment = new StepFragment();
@@ -43,19 +45,15 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
 
     @Override
     public void onPrevious() {
-        int previousStep = mCurrentStep.getId() - 1;
-        if (previousStep >= 0) {
-            mCurrentStep = mListSteps.get(previousStep);
-            mStepFragment.setRecipeStep(mCurrentStep);
+        if (mCurrentStep > 0) {
+            mStepFragment.setRecipeStep(mListSteps.get(--mCurrentStep));
         }
     }
 
     @Override
     public void onNext() {
-        int nextStep = mCurrentStep.getId() + 1;
-        if (nextStep < mListSteps.size()) {
-            mCurrentStep = mListSteps.get(nextStep);
-            mStepFragment.setRecipeStep(mCurrentStep);
+        if (mCurrentStep < mListSteps.size() - 1) {
+            mStepFragment.setRecipeStep(mListSteps.get(++mCurrentStep));
         }
     }
 }

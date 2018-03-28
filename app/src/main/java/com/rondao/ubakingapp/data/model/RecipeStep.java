@@ -2,6 +2,8 @@ package com.rondao.ubakingapp.data.model;
 
 import org.parceler.Parcel;
 
+import java.util.Objects;
+
 @Parcel
 public class RecipeStep {
     int id;
@@ -48,5 +50,20 @@ public class RecipeStep {
 
     public void setThumbnailURL(String thumbnailURL) {
         this.thumbnailURL = thumbnailURL;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RecipeStep that = (RecipeStep) o;
+
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }
