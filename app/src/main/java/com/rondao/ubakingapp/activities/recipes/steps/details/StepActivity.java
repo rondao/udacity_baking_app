@@ -1,5 +1,6 @@
 package com.rondao.ubakingapp.activities.recipes.steps.details;
 
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,9 @@ import java.util.List;
 
 import icepick.Icepick;
 import icepick.State;
+
+import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
+import static android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
 
 public class StepActivity extends AppCompatActivity implements StepNavigationFragment.StepNavigationListener {
     public static final String EXTRA_STEP = "step";
@@ -30,6 +34,12 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.step_activity);
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    SYSTEM_UI_FLAG_FULLSCREEN | SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+            getSupportActionBar().hide();
+        }
 
         Icepick.restoreInstanceState(this, savedInstanceState);
 
