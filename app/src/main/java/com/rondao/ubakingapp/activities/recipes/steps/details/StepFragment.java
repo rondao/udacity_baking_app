@@ -45,8 +45,6 @@ public class StepFragment extends Fragment {
 
         setRecipeStep((RecipeStep) Parcels.unwrap(getArguments().getParcelable(StepActivity.EXTRA_STEP)));
 
-        initializePlayer(Uri.parse(mStep.getVideoURL()));
-
         return mBinding.getRoot();
     }
 
@@ -58,25 +56,30 @@ public class StepFragment extends Fragment {
 
     public void setRecipeStep(RecipeStep step) {
         mStep = step;
+        setMediaToPlayer(Uri.parse(mStep.getVideoURL()));
         mBinding.setObj(mStep);
     }
 
-    private void initializePlayer(Uri mediaUri) {
+    private void setMediaToPlayer(Uri mediaUri) {
+        Context context = getContext();
+        initializePlayer(context);
+
+        mExoPlayer.prepare(new ExtractorMediaSource(
+                mediaUri,
+                new DefaultDataSourceFactory(context, Util.getUserAgent(context, getActivity().getTitle().toString())),
+                new DefaultExtractorsFactory(),
+                null,
+                null));
+
+        mExoPlayer.setPlayWhenReady(true);
+
+    }
+    private void initializePlayer(Context context) {
         if (mExoPlayer == null) {
-            Context context = getContext();
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(context, new DefaultTrackSelector(), new DefaultLoadControl());
 
             mPlayerView.setPlayer(mExoPlayer);
             mPlayerView.setBackgroundColor(Color.parseColor("BLACK"));
-
-            mExoPlayer.prepare(new ExtractorMediaSource(
-                    mediaUri,
-                    new DefaultDataSourceFactory(context, Util.getUserAgent(context, getActivity().getTitle().toString())),
-                    new DefaultExtractorsFactory(),
-                    null,
-                    null));
-
-            mExoPlayer.setPlayWhenReady(true);
         }
     }
 
