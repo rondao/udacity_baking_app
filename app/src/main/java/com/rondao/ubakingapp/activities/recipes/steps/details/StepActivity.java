@@ -40,6 +40,8 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
                     .add(R.id.step_fragment, mStepFragment)
                     .add(R.id.step_navigation_fragment, stepNavigationFragment)
                     .commit();
+         } else {
+            mStepFragment = (StepFragment) getSupportFragmentManager().findFragmentById(R.id.step_fragment);
         }
     }
 
