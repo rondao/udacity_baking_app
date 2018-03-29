@@ -49,7 +49,7 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
 
             initFragments();
          } else {
-            retriveExistingFragment();
+            retrieveExistingFragment();
         }
 
         mBinding.setObj(mListSteps.get(mCurrentStep));
@@ -80,7 +80,7 @@ public class StepActivity extends AppCompatActivity implements StepNavigationFra
                 .commit();
     }
 
-    public void retriveExistingFragment() {
+    public void retrieveExistingFragment() {
         mStepFragment = (StepFragment) getSupportFragmentManager().findFragmentById(R.id.step_fragment);
         Bundle args = new Bundle();
         args.putParcelable(EXTRA_STEP, Parcels.wrap(mListSteps.get(mCurrentStep)));
