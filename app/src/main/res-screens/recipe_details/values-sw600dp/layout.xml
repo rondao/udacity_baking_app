@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="recipe_activity" type="layout">@layout/recipe_activity_twopanes</item>
+</resources>

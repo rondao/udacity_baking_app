@@ -45,8 +45,12 @@ public class StepVideoFragment extends Fragment {
     SimpleExoPlayerView mPlayerView;
     private SimpleExoPlayer mExoPlayer;
 
-    public static StepVideoFragment newInstance() {
-        return new StepVideoFragment();
+    public static StepVideoFragment newInstance(RecipeStep recipeStep) {
+        StepVideoFragment fragment = new StepVideoFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(StepActivity.EXTRA_STEP, Parcels.wrap(recipeStep));
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
