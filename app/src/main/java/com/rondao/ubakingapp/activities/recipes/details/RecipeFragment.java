@@ -1,5 +1,6 @@
 package com.rondao.ubakingapp.activities.recipes.details;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.rondao.ubakingapp.R;
 import com.rondao.ubakingapp.activities.recipes.steps.details.StepActivity;
+import com.rondao.ubakingapp.activities.recipes.steps.details.StepNavigationFragment;
 import com.rondao.ubakingapp.data.model.Ingredient;
 import com.rondao.ubakingapp.data.model.Recipe;
 import com.rondao.ubakingapp.data.model.RecipeStep;
@@ -26,6 +28,12 @@ public class RecipeFragment extends Fragment {
     private View mView;
     private Recipe mRecipe;
 
+    private RecipeFragmentListener mCallback;
+
+    public interface RecipeFragmentListener {
+        void onStepClicked(RecipeStep step);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,6 +45,12 @@ public class RecipeFragment extends Fragment {
         initStepRecyclerView();
 
         return mView;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallback = (RecipeFragmentListener) context;
     }
 
     private void initIngredientRecyclerView() {
@@ -60,18 +74,11 @@ public class RecipeFragment extends Fragment {
         mStepAdapter = new GenericAdapter(R.layout.step_item, new GenericAdapter.ListItemClickListener<RecipeStep>() {
             @Override
             public void onListItemClick(RecipeStep obj) {
-                showStepDetails(obj);
+                mCallback.onStepClicked(obj);
             }
         });
         mStepAdapter.setDataSet(mRecipe.getSteps());
 
         recyclerView.setAdapter(mStepAdapter);
-    }
-
-    public void showStepDetails(RecipeStep step) {
-        Intent intent = new Intent(getContext(), StepActivity.class);
-        intent.putExtra(StepActivity.EXTRA_STEP, Parcels.wrap(step));
-        intent.putExtra(StepActivity.EXTRA_STEPS, Parcels.wrap(mRecipe.getSteps()));
-        startActivity(intent);
     }
 }
