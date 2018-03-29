@@ -35,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class StepFragment extends Fragment {
+public class StepVideoFragment extends Fragment {
     private Unbinder mUnbinder;
 
     private RecipeStep mStep;
@@ -45,8 +45,8 @@ public class StepFragment extends Fragment {
     SimpleExoPlayerView mPlayerView;
     private SimpleExoPlayer mExoPlayer;
 
-    public static StepFragment newInstance() {
-        return new StepFragment();
+    public static StepVideoFragment newInstance() {
+        return new StepVideoFragment();
     }
 
     @Override

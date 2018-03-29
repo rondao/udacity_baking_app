@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <FrameLayout
-            android:id="@+id/step_fragment"
+            android:id="@+id/step_video_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
