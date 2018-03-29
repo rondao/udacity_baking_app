@@ -66,14 +66,16 @@ public class RecipeActivity extends AppCompatActivity implements RecipeFragment.
     }
 
     public void retrieveExistingFragment() {
-        mStepVideoFragment = (StepVideoFragment) getSupportFragmentManager().findFragmentById(R.id.step_video_fragment);
-        mStepDescriptionFragment  = (StepDescriptionFragment) getSupportFragmentManager().findFragmentById(R.id.step_description_fragment);
+        if (findViewById(R.id.master_detail_layout) != null) {
+            mStepVideoFragment = (StepVideoFragment) getSupportFragmentManager().findFragmentById(R.id.step_video_fragment);
+            mStepDescriptionFragment = (StepDescriptionFragment) getSupportFragmentManager().findFragmentById(R.id.step_description_fragment);
 
-        Bundle args = new Bundle();
-        args.putParcelable(StepActivity.EXTRA_STEP, Parcels.wrap(mRecipeStep));
+            Bundle args = new Bundle();
+            args.putParcelable(StepActivity.EXTRA_STEP, Parcels.wrap(mRecipeStep));
 
-        mStepVideoFragment.setArguments(args);
-        mStepDescriptionFragment.setArguments(args);
+            mStepVideoFragment.setArguments(args);
+            mStepDescriptionFragment.setArguments(args);
+        }
     }
 
     public void onStepClicked(RecipeStep step) {
