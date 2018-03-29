@@ -31,7 +31,9 @@ public class RecipesActivity extends AppCompatActivity implements RecipesContrac
     private void initRecipesRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.rv_recipes);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        int gridColumns = getResources().getBoolean(R.bool.isTablet) ? 2 : 1;
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, gridColumns));
         recyclerView.setHasFixedSize(true);
 
         mRecipeAdapter = new GenericAdapter(R.layout.recipe_card, new GenericAdapter.ListItemClickListener<Recipe>() {
