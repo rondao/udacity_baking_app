@@ -31,18 +31,13 @@ public class StepDescriptionFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.step_description_fragment, container, false);
 
         if (getArguments() != null) {
             mRecipeStep = Parcels.unwrap(getArguments().getParcelable(StepActivity.EXTRA_STEP));
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.step_description_fragment, container, false);
         mBinding.setObj(mRecipeStep);
 
         return mBinding.getRoot();
